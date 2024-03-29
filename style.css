@@ -126,6 +126,7 @@ body {
   border-radius: 5px;
   background-color: antiquewhite;
   padding: 0.25em 0.5em;
+  cursor: pointer;
 }
 
 .winning-msg.show {
