@@ -26,6 +26,7 @@ function startGame(){
     cellElement.forEach(cell => {
         cell.classList.remove(xClass)
         cell.classList.remove(oClass)
+        cell.style.backgroundColor = '';
         cell.removeEventListener('click', handleClick)
         cell.addEventListener('click', handleClick, { once: true })
     })
@@ -55,14 +56,24 @@ function handleClick(e){
     
 }
 
-function endGame(draw){
-    if (draw){
-        winningMsgTextElement.innerText = `DRAW!`
+function endGame(draw) {
+    if (draw) {
+        winningMsgTextElement.innerText = `DRAW!`;
     } else {
-        winningMsgTextElement.innerText = `${oturn ? "O's" : "X's" } WINS!`
+        const currentClass = oturn ? oClass : xClass;
+        winningMsgTextElement.innerText = `${oturn ? "O's" : "X's" } WINS!`;
+        winningCombo.forEach(combo => {
+            if (combo.every(index => cellElement[index].classList.contains(currentClass))) {
+                // If the current combination contains all cells with the current class, color them green
+                combo.forEach(index => {
+                    cellElement[index].style.backgroundColor = 'lime';
+                });
+            }
+        });
     }
-    winningMsgElement.classList.add('show')
+    winningMsgElement.classList.add('show');
 }
+
 
 function isDraw(){
     return [...cellElement].every(cell => {
@@ -85,10 +96,12 @@ function setTicHoverClass() {
     }
 }
 
-function checkWin(currentClass){
+function checkWin(currentClass) {
     return winningCombo.some(combo => {
-        return combo.every(index => {
-            return cellElement[index].classList.contains(currentClass)
-        })
-    })
+        if (combo.every(index => cellElement[index].classList.contains(currentClass))) {
+            // If all cells in a combination have the current class, it's a win
+            return true;
+        }
+        return false;
+    });
 }
