@@ -13,6 +13,7 @@ body {
   justify-content: center;
   align-items: center;
   padding-top: 10%;
+  background-color: lime;
 }
 .tic {
   display: grid;
@@ -102,7 +103,7 @@ body {
 .tic.o .cell.cell:not(.x):not(.o):hover::after {
   width: calc(var(--mark-size) * 0.7);
   height: calc(var(--mark-size) * 0.7);
-  background-color: white;
+  background-color: lime;
   /* background: inherit; */
 }
 
@@ -128,7 +129,30 @@ body {
   padding: 0.25em 0.5em;
   cursor: pointer;
 }
-
+.winning-msg button:hover, .winning-msg button:focus{
+  background-color: lime;
+}
 .winning-msg.show {
   display: flex;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .winning-msg{
+    display: block;
+    display: none;
+    
+  }
+  #tic-wining-text{
+    font-size: 25px;
+    margin-right: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .winning-msg button {
+    font-size: 1.5rem;
+    border-radius: 15px;
+    background-color: lime;
+    margin-bottom: 2rem;
+  }
+
 }
